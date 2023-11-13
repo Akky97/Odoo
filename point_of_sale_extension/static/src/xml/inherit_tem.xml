@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+     <t t-inherit="point_of_sale.EditListInput" t-inherit-mode="extension">
+        <xpath expr="//div" position="replace">
+                <div>
+                    <input type="text" t-model="props.item.text" class="popup-input list-line-input"
+                           placeholder="Serial/Lot Number6788" t-on-keyup="onKeyup" t-on-change="on_change_key"/>
+                    <i class="oe_link_icon fa fa-trash-o" role="img" aria-label="Remove" title="Remove"
+                       t-on-click="trigger('remove-item', props.item)"></i>
+                </div>
+        </xpath>
+    </t>
+
+     <t t-inherit="point_of_sale.ProductItem" t-inherit-mode="extension">
+        <xpath expr="//article" position="replace">
+                <article class="product" tabindex="0" t-on-keypress="spaceClickProduct"
+                 t-on-click="trigger('click-product', props.product)"
+                 t-att-data-product-id="props.product.id"
+                 t-attf-aria-labelledby="article_product_{{props.product.id}}">
+            <div class="product-img" t-on-click="onKeyupId">
+                <i role="img" aria-label="Info" title="Info" class="product-info-button fa fa-info-circle"
+                    t-on-click.stop="onProductInfoClick()"
+                />
+                <img t-att-src="imageUrl" t-att-alt="props.product.display_name" />
+                <span class="price-tag">
+                    <t t-esc="price" />
+                </span>
+            </div>
+            <div class="product-name" t-attf-id="article_product_{{props.product.id}}" t-on-click="onKeyupId">
+                <t t-esc="props.product.display_name" />
+            </div>
+        </article>
+        </xpath>
+    </t>
+</templates>
