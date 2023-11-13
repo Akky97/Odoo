@@ -7,10 +7,12 @@ odoo.define('point_of_sale_extension.Orderline', function(require) {
     class Orderline extends PosComponent {
         selectLine() {
             var session = require('web.session');
-                session['product_id'] = this.props.line.product.id
+            session['product_id'] = this.props.line.product.id
             this.trigger('select-line', { orderline: this.props.line });
         }
         lotIconClicked() {
+            var session = require('web.session');
+            session['product_id'] = this.props.line.product.id
             this.trigger('edit-pack-lot-lines', { orderline: this.props.line });
         }
         get addedClasses() {
