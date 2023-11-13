@@ -20,7 +20,6 @@ odoo.define('point_of_sale_extension.ProductItem', function(require) {
         onKeyupId(event){
             var session = require('web.session');
                 session['product_id'] = this.props.product.id
-            console.log(this, "ffffff456f", event);
             }
 
         get imageUrl() {

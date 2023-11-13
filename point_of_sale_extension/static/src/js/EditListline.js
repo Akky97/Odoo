@@ -12,16 +12,13 @@ odoo.define('point_of_sale_extension.EditListInput', function(require) {
         }
 
         on_change_key(event){
-//            console.log("hiii");
             var session = require('web.session');
-            console.log(session);
             var res = rpc.query({
                 model: 'pos.order',
                 method: 'get_lot_available',
                 args:[[], this.props.item.text, session.product_id]
             }).then(function (data){
                 if (!data){
-//                    console.log(event);
                     event.target.style.border = "1px solid red"
                 }
                 else{

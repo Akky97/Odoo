@@ -8,7 +8,6 @@ class PosOrder(models.Model):
     _inherit = ['pos.order', 'mail.thread', 'mail.activity.mixin']
 
     def get_lot_available(self, msg, product):
-        print(msg, product)
         rec = self.env['stock.production.lot'].sudo().search([('name', '=', msg), ('product_id', '=', product)])
         if rec:
             return True
@@ -32,19 +31,3 @@ class PosOrder(models.Model):
             if message:
                 rec.message_post(body=message)
         return rec
-
-class PosOrderLine(models.Model):
-    _inherit = "pos.order.line"
-
-    # def create(self, values):
-    #     message = ""
-    #     for vals in values:
-    #         if vals.get('order_id'):
-    #             for rec in vals.get('pack_lot_ids'):
-    #                 vv = self.env['stock.production.lot'].sudo().search([('name', '=', rec[2]['lot_name']), ('product_id', '=', vals.get('product_id'))])
-    #                 if not vv:
-    #                     message += f"{rec[2]['lot_name']} is unavailable in stock,"
-    #             if message:
-    #                 order = self.env['pos.order'].sudo().browse(int(vals.get('order_id')))
-    #                 order.message_post(body=message)
-    #     return super(PosOrderLine, self).create(values)
